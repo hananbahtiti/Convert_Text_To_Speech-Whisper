@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Convert Text To Speech</title>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Convert Text To Speech</h1>
+        <form action="/whisper" method="post" enctype="multipart/form-data">
+            <label for="audio-file">Select an audio file:</label>
+            <input type="file" name="audio-file" id="audio-file" accept=".wav, .mp3">
+            <button type="submit">Convert to Text</button>
+        </form>
+        <div class="result-frame">
+            <div id="results" class="results"></div>
+        </div>
+    </div>
+    <script>
+        const form = document.querySelector('form');
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const response = await fetch('/whisper', {
+                method: 'POST',
+                body: formData
+            });
+            const data = await response.json();
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '';
+            data.results.forEach(result => {
+                const resultDiv = document.createElement('div');
+                resultDiv.innerHTML = <p><strong>File Name:</strong> ${result.filename}</p><p><strong>Transcript:</strong> ${result.transcript}</p>;
+                resultsDiv.appendChild(resultDiv);
+            });
+        });
+    </script>
+</body>
+</html>
