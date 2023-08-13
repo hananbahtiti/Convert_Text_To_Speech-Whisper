@@ -1,4 +1,4 @@
 openai-whisper
-numba==0.53
-numpy==1.21.4
+numba==0.57.1
+numpy==1.25
 flask-cors
