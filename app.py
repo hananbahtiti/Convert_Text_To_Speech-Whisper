@@ -4,15 +4,15 @@ from tempfile import NamedTemporaryFile
 import whisper
 import torch
 
-app = Flask(name)
-CORS(app)
-
 # Check if NVIDIA GPU is available
 torch.cuda.is_available()
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
 # Load the Whisper model:
-model = whisper.load_model("base", device=DEVICE)
+model = whisper.load_model("medium")
+
+app = Flask(__name__)
+CORS(app)
 
 @app.route('/whisperapp', methods=['POST'])
 def handler():
@@ -34,6 +34,5 @@ def handler():
 
     return render_template('index.html', results=results)
 
-if name == 'main':
+if __name__ == '__main__':
     app.run()
-
