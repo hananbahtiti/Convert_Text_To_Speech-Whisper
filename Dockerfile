@@ -9,6 +9,7 @@ ENV PIP_ROOT_USER_ACTION=ignore
 RUN apt-get update && apt-get install git -y
 RUN pip install --upgrade pip
 RUN pip install Flask
+RUN pip install openai-whisper
 RUN pip3 install -r requirements.txt
 RUN pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 RUN pip3 install "git+https://github.com/openai/whisper.git"
